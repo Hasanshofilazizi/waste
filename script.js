@@ -31,6 +31,12 @@ function calculateWaste() {
     `;
 
 }
+
+function resetbt(){
+    document.getElementById('wasteForm').reset();
+    document.getElementById('result').innerHTML=` `;
+}
+
 /* <p>Tanggal/Waktu: <span id="tanggalwaktu"></span></p>
 <script>
 var tw = new Date();
