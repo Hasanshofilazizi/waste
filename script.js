@@ -10,7 +10,7 @@ function calculateWaste() {
     // Calculate total waste for powder and dough
     const totalPowderWaste = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
     const totalDoughWaste = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste;
-    var tw = new Date();
+    var tw = new Date(document.getElementById('tanggal').value);
     if (tw.getTimezoneOffset() == 0) (a=tw.getTime() + ( 7 *60*60*1000))
     else (a=tw.getTime());
     tw.setTime(a);
