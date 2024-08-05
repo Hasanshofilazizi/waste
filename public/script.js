@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/data');
             const data = await response.json();
+            let totalBubuk;
+            let totalAdonan;
 
             if (data.length > 0) {
                 const table = `<table class="table table-dark table-striped table-bordered text-center">
@@ -52,18 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         </tr>
                     </thead>
                     <tbody>
-                        ${data.map(item => `
+                        ${data.map(item => 
+                            `
                             <tr>
                                 <td>${item.id}</td>
                                 <td>${item.date}</td>
                                 <td>${item.shift1_powder_waste}</td>
                                 <td>${item.shift2_powder_waste}</td>
                                 <td>${item.shift3_powder_waste}</td>
-                                <td>${item.shift1_powder_waste + item.shift2_powder_waste + item.shift3_powder_waste}</td>
+                                <td>${parseFloat(item.shift1_powder_waste) + parseFloat(item.shift2_powder_waste) + parseFloat(item.shift3_powder_waste)}</td>
                                 <td>${item.shift1_dough_waste}</td>
                                 <td>${item.shift2_dough_waste}</td>
                                 <td>${item.shift3_dough_waste}</td>
-                                <td>${item.shift3_dough_waste + item.shift2_dough_waste + item.shift1_dough_waste}</td>
+                                <td>${parseFloat(item.shift3_dough_waste) + parseFloat(item.shift2_dough_waste) + parseFloat(item.shift1_dough_waste)}</td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -99,6 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function calculateWaste() {
+    document.getElementById('spinner').style.display = 'block';
+    setTimeout(() => {
     // Retrieve values from form inputs
     const shift1PowderWaste = parseFloat(document.getElementById('shift1PowderWaste').value) || 0;
     const shift1DoughWaste = parseFloat(document.getElementById('shift1DoughWaste').value) || 0;
@@ -129,10 +134,12 @@ function calculateWaste() {
         <p><strong>Waste Bubuk BC RM</strong><br>Shift 1 = ${shift1PowderWaste} Kg<br>Shift 2 = ${shift2PowderWaste} Kg<br>Shift 3 = ${shift3PowderWaste} Kg<br><strong>Jumlah : ${totalPowderWaste.toFixed(1)} Kg</strong></p>
         <p><strong>Waste Adonan Kotor</strong><br>Shift 1 = ${shift1DoughWaste} Kg<br>Shift 2 = ${shift2DoughWaste} Kg<br>Shift 3 = ${shift3DoughWaste} Kg<br><strong>Jumlah : ${totalDoughWaste.toFixed(1)} Kg</strong></p>
     `;
+    document.getElementById('spinner').style.display = 'none';
+    }, 1000);
 
 }
 
-// function totalwaste(){
-//     const data = await response.json();
-    
-// }
+function resetForm() {
+    document.getElementById('wasteForm').reset();
+    document.getElementById('hasil').innerHTML = '';
+}
