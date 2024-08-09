@@ -9,12 +9,8 @@ const port = 3000;
 
 // Set up PostgreSQL client
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'wasteHasan',
-  password: '', // replace with your PostgreSQL password
-  port: 5432,
-});
+  connectionString: process.env.POSTGRES_URL,
+})
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
