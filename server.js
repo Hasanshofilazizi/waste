@@ -34,14 +34,16 @@ app.post('/submit', async (req, res) => {
     shift2PowderWaste,
     shift2DoughWaste,
     shift3PowderWaste,
-    shift3DoughWaste
+    shift3DoughWaste,
+    totalA,
+    totalB
   } = req.body;
 
   try {
     await pool.query(
-      `INSERT INTO waste_data (date, shift1_powder_waste, shift1_dough_waste, shift2_powder_waste, shift2_dough_waste, shift3_powder_waste, shift3_dough_waste)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [date, shift1PowderWaste, shift1DoughWaste, shift2PowderWaste, shift2DoughWaste, shift3PowderWaste, shift3DoughWaste]
+      `INSERT INTO waste_data (date, shift1_powder_waste, shift1_dough_waste, shift2_powder_waste, shift2_dough_waste, shift3_powder_waste, shift3_dough_waste, totala, totalb)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+      [date, shift1PowderWaste, shift1DoughWaste, shift2PowderWaste, shift2DoughWaste, shift3PowderWaste, shift3DoughWaste, totalA, totalB]
     );
     res.send('<h2>Data inserted successfully!</h2>');
   } catch (err) {
@@ -54,7 +56,7 @@ app.post('/submit', async (req, res) => {
 // Fetch data (GET request)
 app.get('/data', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM waste_data ORDER BY date');
+    const result = await pool.query('SELECT * FROM waste_data');
     res.json(result.rows);
   } catch (err) {
     console.error(err);
@@ -65,7 +67,7 @@ app.get('/data', async (req, res) => {
 // Download data as XLS (GET request)
 app.get('/download', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM waste_data ORDER BY date');
+    const result = await pool.query('SELECT * FROM waste_data');
     const data = result.rows;
 
     const workbook = new ExcelJS.Workbook();
@@ -77,11 +79,11 @@ app.get('/download', async (req, res) => {
       { header: 'Shift 1 - Waste Bubuk', key: 'shift1_powder_waste', width: 20 },
       { header: 'Shift 2 - Waste Bubuk', key: 'shift2_powder_waste', width: 20 },
       { header: 'Shift 3 - Waste Bubuk', key: 'shift3_powder_waste', width: 20 },
-      { header: 'Total Waste Bubuk', key: 'shift1_powder_waste + shift2_powder_waste + shift3_powder_waste', width: 20 },
+      { header: 'Total Waste Bubuk', key: 'totala', width: 20 },
       { header: 'Shift 1 - Waste Adonan', key: 'shift1_dough_waste', width: 20 },
       { header: 'Shift 2 - Waste Adonan', key: 'shift2_dough_waste', width: 20 },
       { header: 'Shift 3 - Waste Adonan', key: 'shift3_dough_waste', width: 20 },
-      { header: 'Total Waste Bubuk', key: 'shift3_dough_waste + shift2_dough_waste + shift1_dough_waste', width: 20 }
+      { header: 'Total Waste Adonan', key: 'totalb', width: 20 }
     ];
 
     data.forEach(row => {
