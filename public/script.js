@@ -1,7 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const wasteForm = document.getElementById('wasteForm');
-    const resultDiv = document.getElementById('result');
-    const downloadButton = document.getElementById('downloadData');
+// Function to get values from the form fields
+function getTotalValues() {
+    // Check if the element is visible
+    var wasteInfoDiv = document.getElementById('wasteInfo');
+    if (wasteInfoDiv.style.display === 'none' || wasteInfoDiv.style.display === '') {
+        console.log('The div is not visible.');
+        return;
+    }
 
     const shift1PowderWaste = parseFloat(document.getElementById('shift1PowderWaste').value) || 0;
     const shift1DoughWaste = parseFloat(document.getElementById('shift1DoughWaste').value) || 0;
@@ -14,8 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPowderWaste = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
     const totalDoughWaste = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste;
 
-    document.getElementById('totalB').value=totalDoughWaste;
-    document.getElementById('totalA').value=totalPowderWaste;
+    // Get the values from the inputs
+    const totalA = (document.getElementById('totalA').value=totalDoughWaste);
+    const totalB = (document.getElementById('totalB').value=totalPowderWaste);
+
+    // Log or use the values as needed
+    console.log('Total A:', totalA);
+    console.log('Total B:', totalB);
+
+    // You might want to convert these values to numbers
+    return {
+        totalA: Number(totalA),
+        totalB: Number(totalB)
+    };
+}
+document.addEventListener('DOMContentLoaded', () => {
+
+    const wasteForm = document.getElementById('wasteForm');
+    const resultDiv = document.getElementById('result');
+    const downloadButton = document.getElementById('downloadData');
 
     // Handle waste data submission
     wasteForm.addEventListener('submit', async (event) => {
