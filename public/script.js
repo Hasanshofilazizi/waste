@@ -1,38 +1,3 @@
-// Function to get values from the form fields
-function getTotalValues() {
-    // Check if the element is visible
-    var wasteInfoDiv = document.getElementById('wasteInfo');
-    if (wasteInfoDiv.style.display === 'none' || wasteInfoDiv.style.display === '') {
-        console.log('The div is not visible.');
-        return;
-    }
-
-    const shift1PowderWaste = parseFloat(document.getElementById('shift1PowderWaste').value) || 0;
-    const shift1DoughWaste = parseFloat(document.getElementById('shift1DoughWaste').value) || 0;
-    const shift2PowderWaste = parseFloat(document.getElementById('shift2PowderWaste').value) || 0;
-    const shift2DoughWaste = parseFloat(document.getElementById('shift2DoughWaste').value) || 0;
-    const shift3PowderWaste = parseFloat(document.getElementById('shift3PowderWaste').value) || 0;
-    const shift3DoughWaste = parseFloat(document.getElementById('shift3DoughWaste').value) || 0;
-
-    // Calculate total waste for powder and dough
-    const totalPowderWaste = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
-    const totalDoughWaste = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste;
-
-    // Get the values from the inputs
-    const totalA = (document.getElementById('totalA').value=totalDoughWaste);
-    const totalB = (document.getElementById('totalB').value=totalPowderWaste);
-
-    // Log or use the values as needed
-    console.log('Total A:', totalA);
-    console.log('Total B:', totalB);
-
-    // You might want to convert these values to numbers
-    return {
-        totalA: Number(totalA),
-        totalB: Number(totalB)
-    };
-}
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const wasteForm = document.getElementById('wasteForm');
