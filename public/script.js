@@ -32,6 +32,7 @@ function getTotalValues() {
         totalB: Number(totalB)
     };
 }
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const wasteForm = document.getElementById('wasteForm');
@@ -183,8 +184,6 @@ function calculateWaste() {
     var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
     const tg = document.getElementById("date").innerHTML = tanggal+" "+bulanarray[bulan]+" "+tahun;
 
-
-
     
     // Display results
     const resultDiv = document.getElementById('hasil');
@@ -195,6 +194,19 @@ function calculateWaste() {
     `;
     document.getElementById('spinner').style.display = 'none';
     }, 1000);
+
+    const totalA = (document.getElementById('totalA').value=totalDoughWaste);
+    const totalB = (document.getElementById('totalB').value=totalPowderWaste);
+
+    // Log or use the values as needed
+    console.log('Total A:', totalA);
+    console.log('Total B:', totalB);
+
+    // You might want to convert these values to numbers
+    return {
+        totalA: Number(totalA),
+        totalB: Number(totalB)
+    };
 
 }
 
