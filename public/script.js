@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle waste data submission
     wasteForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Prevent default form submission
-
+        event.preventDefault(); 
+        
         const formData = new FormData(wasteForm);
         const data = new URLSearchParams(formData);
 
@@ -28,16 +28,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const dateSearchInput = document.getElementById('dateSearch');
 
-    // Fetch and display data
-    const fetchData = async () => {
+    const fetchData = async (searchDate = null) => {
         try {
             const response = await fetch('/data');
             const data = await response.json();
-            let totalBubuk;
-            let totalAdonan;
 
-            if (data.length > 0) {
+            const formatDate = (dateString) => {
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${month}/${day}/${year}`;
+            };
+
+            const formatDateForComparison = (dateString) => {
+                const date = new Date(dateString);
+                return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            };
+
+            const filteredData = searchDate
+                ? data.filter(item => formatDateForComparison(item.date) === searchDate)
+                : data;
+
+            if (filteredData.length > 0) {
                 const table = `<table class="table table-dark table-striped table-bordered text-center">
                     <thead>
                         <tr>
@@ -54,11 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         </tr>
                     </thead>
                     <tbody>
-                        ${data.map(item => 
+                        ${filteredData.map(item => 
                             `
                             <tr>
                                 <td>${item.id}</td>
-                                <td>${item.date}</td>
+                                <td>${formatDate(item.date)}</td>
                                 <td>${item.shift1_powder_waste}</td>
                                 <td>${item.shift2_powder_waste}</td>
                                 <td>${item.shift3_powder_waste}</td>
@@ -80,6 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
             resultDiv.innerHTML = '<h2>Error fetching data</h2>';
         }
     };
+
+    dateSearchInput.addEventListener('change', (event) => {
+        const selectedDate = event.target.value; // Format: YYYY-MM-DD
+        fetchData(selectedDate);
+    });
 
     // Fetch data on page load
     fetchData();
@@ -115,6 +135,10 @@ function calculateWaste() {
     // Calculate total waste for powder and dough
     const totalPowderWaste = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
     const totalDoughWaste = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste;
+
+    document.getElementById('totalB').value=totalDoughWaste;
+    document.getElementById('totalA').value=totalPowderWaste;
+
     var tw = new Date(document.getElementById('date').value);
     if (tw.getTimezoneOffset() == 0) (a=tw.getTime() + ( 7 *60*60*1000))
     else (a=tw.getTime());
@@ -124,9 +148,12 @@ function calculateWaste() {
     var bulan= tw.getMonth ();
     var tanggal= tw.getDate ();
     var hariarray=new Array("Minggu,","Senin,","Selasa,","Rabu,","Kamis,","Jum'at,","Sabtu,");
-    var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","Nopember","Desember");
+    var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
     const tg = document.getElementById("date").innerHTML = tanggal+" "+bulanarray[bulan]+" "+tahun;
 
+
+
+    
     // Display results
     const resultDiv = document.getElementById('hasil');
     resultDiv.innerHTML = `

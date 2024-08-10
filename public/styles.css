@@ -1,6 +1,6 @@
 body {
     background: linear-gradient(135deg, rgb(0, 18, 97), rgb(0, 8, 41));
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 .container {
     background-color: none;
@@ -85,4 +85,35 @@ h1 {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+.small-date-input {
+    max-width: 200px;
+}
+.card {
+    background-color: #495057; /* Darker background for the card */
+    color: #f8f9fa; /* Light text color for card content */
+}
+.card-header {
+    background-color: #6c757d; /* Slightly lighter background for the header */
+    border-bottom: 1px solid #343a40; /* Dark border for header */
+}
+.card-footer {
+    background-color: #6c757d; /* Same background as header for consistency */
+    border-top: 1px solid #343a40; /* Dark border for footer */
+}
+.form-label {
+    font-weight: 500; /* Make label text slightly bolder */
+}
+.input-group {
+    display: flex; /* Ensure label and input are in a single row */
+    align-items: center; /* Center items vertically */
+}
+.input-group .form-control {
+    flex: 1; /* Allow input to take up available space */
+}
+.table-wrapper {
+    overflow-x: auto; /* Add horizontal scroll for small screens */
+}
+table {
+    width: 100%; /* Make table take up full width */
 }
