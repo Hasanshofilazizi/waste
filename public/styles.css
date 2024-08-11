@@ -117,6 +117,3 @@ h1 {
 table {
     width: 100%; /* Make table take up full width */
 }
-.hidden {
-    display: none;
-}
