@@ -32,14 +32,17 @@ function hasil(){
 
 
 
-    
-    // Display results
+    if (shift1PowderWaste === ''|| shift1DoughWaste === ''||shift2PowderWaste === ''||shift3PowderWaste === ''||shift2DoughWaste === ''|| shift3DoughWaste === ''){
+        window.alert('input tidak boleh kosong ya :)');
+    }
+    else {
     const resultDiv = document.getElementById('hasil');
     resultDiv.innerHTML = `
         <p><strong>Jumlah hasil waste keluar tanggal ${tg} </strong></p>
         <p><strong>Waste Bubuk BC RM</strong><br>Shift 1 = ${shift1PowderWaste} Kg<br>Shift 2 = ${shift2PowderWaste} Kg<br>Shift 3 = ${shift3PowderWaste} Kg<br><strong>Jumlah : ${totalPowderWaste.toFixed(1)} Kg</strong></p>
         <p><strong>Waste Adonan Kotor</strong><br>Shift 1 = ${shift1DoughWaste} Kg<br>Shift 2 = ${shift2DoughWaste} Kg<br>Shift 3 = ${shift3DoughWaste} Kg<br><strong>Jumlah : ${totalDoughWaste.toFixed(1)} Kg</strong></p>
     `;
+    }
     document.getElementById('spinner').style.display = 'none';
     }, 1000);
 
