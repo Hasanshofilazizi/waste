@@ -1,4 +1,6 @@
-function calculateWaste() {
+function hasil(){
+    document.getElementById('save').style.display = 'block';
+    document.getElementById('hasil').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
     setTimeout(() => {
     // Retrieve values from form inputs
@@ -13,8 +15,8 @@ function calculateWaste() {
     const totalPowderWaste = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
     const totalDoughWaste = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste;
 
-    document.getElementById('totalA').value = totalPowderWaste.toFixed(2);
-    document.getElementById('totalB').value = totalDoughWaste.toFixed(2);
+    document.getElementById('totalA').value = totalPowderWaste.toFixed(0);
+    document.getElementById('totalB').value = totalDoughWaste.toFixed(0);
 
     var tw = new Date(document.getElementById('date').value);
     if (tw.getTimezoneOffset() == 0) (a=tw.getTime() + ( 7 *60*60*1000))
@@ -37,6 +39,20 @@ function calculateWaste() {
         <p><strong>Jumlah hasil waste keluar tanggal ${tg} </strong></p>
         <p><strong>Waste Bubuk BC RM</strong><br>Shift 1 = ${shift1PowderWaste} Kg<br>Shift 2 = ${shift2PowderWaste} Kg<br>Shift 3 = ${shift3PowderWaste} Kg<br><strong>Jumlah : ${totalPowderWaste.toFixed(1)} Kg</strong></p>
         <p><strong>Waste Adonan Kotor</strong><br>Shift 1 = ${shift1DoughWaste} Kg<br>Shift 2 = ${shift2DoughWaste} Kg<br>Shift 3 = ${shift3DoughWaste} Kg<br><strong>Jumlah : ${totalDoughWaste.toFixed(1)} Kg</strong></p>
+    `;
+    document.getElementById('spinner').style.display = 'none';
+    }, 1000);
+
+}
+
+function calculateWaste() {
+    document.getElementById('hasil').style.display = 'block';
+    document.getElementById('save').style.display = 'none';
+    document.getElementById('spinner').style.display = 'block';
+    setTimeout(() => {
+    resultDiv.innerHTML = `
+     <h1> Data berhasil disimpan di database </h2>
+     <p> Silahkan refresh untuk input data baru </p>  
     `;
     document.getElementById('spinner').style.display = 'none';
     }, 1000);
