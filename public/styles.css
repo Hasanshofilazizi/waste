@@ -117,11 +117,6 @@ h1 {
 table {
     width: 100%; /* Make table take up full width */
 }
-
-.saveData {
-    display: block;
-}
-
-.totalData {
+.hidden {
     display: none;
 }
