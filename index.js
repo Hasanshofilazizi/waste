@@ -31,8 +31,8 @@ app.post('/submit', async (req, res) => {
     shift2DoughWaste,
     shift3PowderWaste,
     shift3DoughWaste,
-    totalA,
-    totalB
+    totalA =  shift1PowderWaste + shift2PowderWaste + shift3PowderWaste ,
+    totalB = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste
   } = req.body;
 
   try {
