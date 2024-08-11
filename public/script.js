@@ -107,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         form.reset();
         wasteInfoDiv.style.display = 'none';
-         });
     });
 
     const dateSearchInput = document.getElementById('dateSearch');
