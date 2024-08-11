@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     shift3DoughWaste,
                     totalA: totalAPostive,
                     totalB: totalBPostive
-                }),
+                })
             });
             if (response.ok) {
                 const text = await response.text();
