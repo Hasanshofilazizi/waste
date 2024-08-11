@@ -33,6 +33,15 @@ h1 {
     border-color: #004085;
     transform: scale(1.05);
 }
+.btn-warning {
+    background-color: #fbff00;
+    border-color: #e7ff0e;
+}
+.btn-warning:hover {
+    background-color: #dbd804;
+    border-color: #eefd1a;
+    transform: scale(1.05);
+}
 .btn-danger {
     background-color: #dc3545;
     border-color: #dc3545;
@@ -116,4 +125,12 @@ h1 {
 }
 table {
     width: 100%; /* Make table take up full width */
+}
+
+.saveData {
+    display: block;
+}
+
+.totalData {
+    display: none;
 }

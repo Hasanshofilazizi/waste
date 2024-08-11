@@ -1,6 +1,6 @@
 function jumlahwaste(){
-    document.getElementById('save').style.display = 'block';
-    document.getElementById('total').style.display = 'none';
+    document.getElementById('saveData').style.display = 'block';
+    document.getElementById('totalData').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
     setTimeout(() => {
     // Retrieve values from form inputs
@@ -49,8 +49,8 @@ function jumlahwaste(){
 }
 
 function calculateWaste() {
-    document.getElementById('total').style.display = 'block';
-    document.getElementById('save').style.display = 'none';
+    document.getElementById('totalData').style.display = 'block';
+    document.getElementById('saveData').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
     setTimeout(() => {
     resultDiv.innerHTML = `
