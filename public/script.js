@@ -1,6 +1,6 @@
-function hasil(){
+function jumlahwaste(){
     document.getElementById('save').style.display = 'block';
-    document.getElementById('hasil').style.display = 'none';
+    document.getElementById('total').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
     setTimeout(() => {
     // Retrieve values from form inputs
@@ -49,7 +49,7 @@ function hasil(){
 }
 
 function calculateWaste() {
-    document.getElementById('hasil').style.display = 'block';
+    document.getElementById('total').style.display = 'block';
     document.getElementById('save').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
     setTimeout(() => {
