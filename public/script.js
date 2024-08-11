@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const formData = new FormData(wasteForm);
         const data = new URLSearchParams(formData);
+        console.log(data);
 
         try {
             const response = await fetch('/submit', {
