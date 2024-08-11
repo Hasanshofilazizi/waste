@@ -41,129 +41,6 @@ function calculateWaste() {
     document.getElementById('spinner').style.display = 'none';
     }, 1000);
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const wasteForm = document.getElementById('wasteForm');
-        const resultDiv = document.getElementById('result');
-        const downloadButton = document.getElementById('downloadData');
-    
-        // Handle waste data submission
-        wasteForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); 
-            
-            const formData = new FormData(wasteForm);
-            const data = new URLSearchParams(formData);
-    
-            try {
-                const response = await fetch('/submit', {
-                    method: 'POST',
-                    body: data
-                });
-    
-                if (response.ok) {
-                    const text = await response.text();
-                    resultDiv.innerHTML = text;
-                    fetchData(); // Refresh the data display after submission
-                } else {
-                    resultDiv.innerHTML = '<h2>Error submitting data</h2>';
-                }
-            } catch (error) {
-                resultDiv.innerHTML = '<h2>Error: ' + error.message + '</h2>';
-            }
-        });
-    
-        const dateSearchInput = document.getElementById('dateSearch');
-    
-        const fetchData = async (searchDate = null) => {
-            try {
-                const response = await fetch('/data');
-                const data = await response.json();
-    
-                const formatDate = (dateString) => {
-                    const date = new Date(dateString);
-                    const day = String(date.getDate()).padStart(2, '0');
-                    const month = String(date.getMonth() + 1).padStart(2, '0');
-                    const year = date.getFullYear();
-                    return `${month}/${day}/${year}`;
-                };
-    
-                const formatDateForComparison = (dateString) => {
-                    const date = new Date(dateString);
-                    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-                };
-    
-                const filteredData = searchDate
-                    ? data.filter(item => formatDateForComparison(item.date) === searchDate)
-                    : data;
-    
-                if (filteredData.length > 0) {
-                    const table = `<table class="table table-dark table-striped table-bordered text-center">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Shift 1 - Waste Bubuk</th>
-                                <th>Shift 2 - Waste Bubuk</th>
-                                <th>Shift 3 - Waste Bubuk</th>
-                                <th>Total Waste Bubuk</th>
-                                <th>Shift 1 - Waste Adonan</th>
-                                <th>Shift 2 - Waste Adonan</th>
-                                <th>Shift 3 - Waste Adonan</th>
-                                <th>Total Adonan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${filteredData.map(item => 
-                                `
-                                <tr>
-                                    <td>${item.id}</td>
-                                    <td>${formatDate(item.date)}</td>
-                                    <td>${item.shift1_powder_waste}</td>
-                                    <td>${item.shift2_powder_waste}</td>
-                                    <td>${item.shift3_powder_waste}</td>
-                                    <td>${parseFloat(item.shift1_powder_waste) + parseFloat(item.shift2_powder_waste) + parseFloat(item.shift3_powder_waste)}</td>
-                                    <td>${item.shift1_dough_waste}</td>
-                                    <td>${item.shift2_dough_waste}</td>
-                                    <td>${item.shift3_dough_waste}</td>
-                                    <td>${parseFloat(item.shift3_dough_waste) + parseFloat(item.shift2_dough_waste) + parseFloat(item.shift1_dough_waste)}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>`;
-    
-                    resultDiv.innerHTML = table;
-                } else {
-                    resultDiv.innerHTML = '<h2>No data available</h2>';
-                }
-            } catch (error) {
-                resultDiv.innerHTML = '<h2>Error fetching data</h2>';
-            }
-        };
-    
-        dateSearchInput.addEventListener('change', (event) => {
-            const selectedDate = event.target.value; // Format: YYYY-MM-DD
-            fetchData(selectedDate);
-        });
-    
-        // Fetch data on page load
-        fetchData();
-    
-        // Handle data download as XLS
-        downloadButton.addEventListener('click', async () => {
-            try {
-                const response = await fetch('/download');
-                const blob = await response.blob();
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'waste_data.xlsx';
-                a.click();
-                URL.revokeObjectURL(url);
-            } catch (error) {
-                resultDiv.innerHTML = '<h2>Error downloading data</h2>';
-            }
-        });
-    });
-
 }
 
 function resetForm() {
@@ -172,3 +49,128 @@ function resetForm() {
 }
 
 
+document.addEventListener('DOMContentLoaded', () => {
+
+    calculateWaste();
+
+    const wasteForm = document.getElementById('wasteForm');
+    const resultDiv = document.getElementById('result');
+    const downloadButton = document.getElementById('downloadData');
+
+    // Handle waste data submission
+    wasteForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); 
+        
+        const formData = new FormData(wasteForm);
+        const data = new URLSearchParams(formData);
+
+        try {
+            const response = await fetch('/submit', {
+                method: 'POST',
+                body: data
+            });
+
+            if (response.ok) {
+                const text = await response.text();
+                resultDiv.innerHTML = text;
+                fetchData(); // Refresh the data display after submission
+            } else {
+                resultDiv.innerHTML = '<h2>Error submitting data</h2>';
+            }
+        } catch (error) {
+            resultDiv.innerHTML = '<h2>Error: ' + error.message + '</h2>';
+        }
+    });
+
+    const dateSearchInput = document.getElementById('dateSearch');
+
+    const fetchData = async (searchDate = null) => {
+        try {
+            const response = await fetch('/data');
+            const data = await response.json();
+
+            const formatDate = (dateString) => {
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${month}/${day}/${year}`;
+            };
+
+            const formatDateForComparison = (dateString) => {
+                const date = new Date(dateString);
+                return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            };
+
+            const filteredData = searchDate
+                ? data.filter(item => formatDateForComparison(item.date) === searchDate)
+                : data;
+
+            if (filteredData.length > 0) {
+                const table = `<table class="table table-dark table-striped table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Shift 1 - Waste Bubuk</th>
+                            <th>Shift 2 - Waste Bubuk</th>
+                            <th>Shift 3 - Waste Bubuk</th>
+                            <th>Total Waste Bubuk</th>
+                            <th>Shift 1 - Waste Adonan</th>
+                            <th>Shift 2 - Waste Adonan</th>
+                            <th>Shift 3 - Waste Adonan</th>
+                            <th>Total Adonan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${filteredData.map(item => 
+                            `
+                            <tr>
+                                <td>${item.id}</td>
+                                <td>${formatDate(item.date)}</td>
+                                <td>${item.shift1_powder_waste}</td>
+                                <td>${item.shift2_powder_waste}</td>
+                                <td>${item.shift3_powder_waste}</td>
+                                <td>${parseFloat(item.shift1_powder_waste) + parseFloat(item.shift2_powder_waste) + parseFloat(item.shift3_powder_waste)}</td>
+                                <td>${item.shift1_dough_waste}</td>
+                                <td>${item.shift2_dough_waste}</td>
+                                <td>${item.shift3_dough_waste}</td>
+                                <td>${parseFloat(item.shift3_dough_waste) + parseFloat(item.shift2_dough_waste) + parseFloat(item.shift1_dough_waste)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>`;
+
+                resultDiv.innerHTML = table;
+            } else {
+                resultDiv.innerHTML = '<h2>No data available</h2>';
+            }
+        } catch (error) {
+            resultDiv.innerHTML = '<h2>Error fetching data</h2>';
+        }
+    };
+
+    dateSearchInput.addEventListener('change', (event) => {
+        const selectedDate = event.target.value; // Format: YYYY-MM-DD
+        fetchData(selectedDate);
+    });
+
+    // Fetch data on page load
+    fetchData();
+
+    // Handle data download as XLS
+    downloadButton.addEventListener('click', async () => {
+        try {
+            const response = await fetch('/download');
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'waste_data.xlsx';
+            a.click();
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            resultDiv.innerHTML = '<h2>Error downloading data</h2>';
+        }
+    });
+});
