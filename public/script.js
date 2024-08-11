@@ -50,26 +50,51 @@ function resetForm() {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    calculateWaste();
-
     const wasteForm = document.getElementById('wasteForm');
+    const totalAPostiveInput = document.getElementById('totalA');
+    const totalBPostiveInput = document.getElementById('totalB');
     const resultDiv = document.getElementById('result');
     const downloadButton = document.getElementById('downloadData');
 
     // Handle waste data submission
     wasteForm.addEventListener('submit', async (event) => {
         event.preventDefault(); 
-        
-        const formData = new FormData(wasteForm);
-        const data = new URLSearchParams(formData);
+
+        // Ambil nilai dari input
+        const shift1PowderWaste = parseFloat(document.getElementById('shift1PowderWaste').value) || 0;
+        const shift1DoughWaste = parseFloat(document.getElementById('shift1DoughWaste').value) || 0;
+        const shift2PowderWaste = parseFloat(document.getElementById('shift2PowderWaste').value) || 0;
+        const shift2DoughWaste = parseFloat(document.getElementById('shift2DoughWaste').value) || 0;
+        const shift3PowderWaste = parseFloat(document.getElementById('shift3PowderWaste').value) || 0;
+        const shift3DoughWaste = parseFloat(document.getElementById('shift3DoughWaste').value) || 0;
+
+        // Hitung total waste
+        const totalAPostive = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
+        const totalBPostive = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste;
+
+        // Update nilai input total
+        totalAPostiveInput.value = totalAPostive.toFixed(1);
+        totalBPostiveInput.value = totalBPostive.toFixed(1);
+
+        // Tampilkan bagian total jika belum ditampilkan
+        wasteInfoDiv.style.display = 'block';
+        const date = document.getElementById('date').value;
 
         try {
             const response = await fetch('/submit', {
                 method: 'POST',
-                body: data
+                body: JSON.stringify({
+                    date,
+                    shift1PowderWaste,
+                    shift1DoughWaste,
+                    shift2PowderWaste,
+                    shift2DoughWaste,
+                    shift3PowderWaste,
+                    shift3DoughWaste,
+                    totalA: totalAPostive,
+                    totalB: totalBPostive
+                }),
             });
-
             if (response.ok) {
                 const text = await response.text();
                 resultDiv.innerHTML = text;
@@ -80,6 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             resultDiv.innerHTML = '<h2>Error: ' + error.message + '</h2>';
         }
+        form.reset();
+        wasteInfoDiv.style.display = 'none';
+         });
     });
 
     const dateSearchInput = document.getElementById('dateSearch');
