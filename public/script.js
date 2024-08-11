@@ -49,7 +49,7 @@ function jumlahwaste(){
 }
 
 function calculateWaste() {
-    document.getElementById('totalData').style.display = 'block';
+    document.getElementById('totalData').style.display ='block';
     document.getElementById('saveData').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
     setTimeout(() => {
