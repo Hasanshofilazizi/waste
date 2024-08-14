@@ -2,6 +2,7 @@ body {
     background: linear-gradient(135deg, rgb(0, 18, 97), rgb(0, 8, 41));
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
+    background-size: auto;
 }
 .container {
     background-color: none;
