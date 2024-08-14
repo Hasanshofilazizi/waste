@@ -3,96 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waste Calculator</title>
+    <title>CCTV Jayanti 2</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
-<body data-bs-theme ="dark">
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#e8eaed"><path d="M320-234h48v-88h88v-48h-88v-88h-48v88h-88v48h88v88Zm206-35h199v-48H526v48Zm0-107h199v-48H526v48Zm36-154 60.5-61 61.5 61 34-35-61-61 61-61-34-34-61 61-61-61-35 34 61 61-61 61 35 35Zm-315-76h194v-48H247v48ZM189-98q-37.18 0-64.09-26.91Q98-151.82 98-189v-582q0-37.59 26.91-64.79Q151.82-863 189-863h582q37.59 0 64.79 27.21Q863-808.59 863-771v582q0 37.18-27.21 64.09Q808.59-98 771-98H189Zm0-91h582v-582H189v582Zm0-582v582-582Z"/></svg>
-            Waste Calculator 
-        </h1>
-        <form id="wasteForm">
-            <div class="mb-3">
-                <label for="date" class="form-label">Tanggal</label>
-                <input type="date" id="date" name="date" class="form-control" required>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="shift1PowderWaste" class="form-label">Shift 1 - Waste Bubuk BC</label>
-                    <input type="number" class="form-control" id="shift1PowderWaste" name="shift1PowderWaste" step="0.01" required>
+<body>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col col-3-md text-center" id="db1">
+                    <a href="waste.html" class="text-decoration-none text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 -960 960 960" width="100px" fill="#e8eaed"><path d="M320-234h48v-88h88v-48h-88v-88h-48v88h-88v48h88v88Zm206-35h199v-48H526v48Zm0-107h199v-48H526v48Zm36-154 60.5-61 61.5 61 34-35-61-61 61-61-34-34-61 61-61-61-35 34 61 61-61 61 35 35Zm-315-76h194v-48H247v48ZM189-98q-37.18 0-64.09-26.91Q98-151.82 98-189v-582q0-37.59 26.91-64.79Q151.82-863 189-863h582q37.59 0 64.79 27.21Q863-808.59 863-771v582q0 37.18-27.21 64.09Q808.59-98 771-98H189Zm0-91h582v-582H189v582Zm0-582v582-582Z"/></svg>
+                    <h4 style="color: white;"> Waste Calculator </h4></a>                
                 </div>
-                <div class="col-md-6">
-                    <label for="shift1DoughWaste" class="form-label">Shift 1 - Waste Adonan</label>
-                    <input type="number" class="form-control" id="shift1DoughWaste" name="shift1DoughWaste" step="0.01" required>
+                <div class="col col-3-md text-center" id="db2">
+                    <a href="#" class="text-decoration-none text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg"  width="100px" height="100px" fill="#e8eaed" class="bi bi-ui-checks" viewBox="0 0 16 16"><path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/></svg>                    
+                    <h4 style="color: white;"> Form CCTV </h4> </a>              
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="shift2PowderWaste" class="form-label">Shift 2 - Waste Bubuk BC</label>
-                    <input type="number" class="form-control" id="shift2PowderWaste" name="shift2PowderWaste" step="0.01" required>
+                <div class="col col-3-md text-center" id="db2">
+                    <a href="#" class="text-decoration-none text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="#e8eaed" class="bi bi-list-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/></svg>                    
+                    <h4 style="color: white;"> Checklist CCTV </h4> </a>                
                 </div>
-                <div class="col-md-6">
-                    <label for="shift2DoughWaste" class="form-label">Shift 2 - Waste Adonan</label>
-                    <input type="number" class="form-control" id="shift2DoughWaste" name="shift2DoughWaste" step="0.01" required>
+                <div class="col col-3-md text-center" id="db3">
+                    <a href="#" class="text-decoration-none text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" fill="#e8eaed" class="bi bi-folder-symlink" viewBox="0 0 16 16"><path d="m11.798 8.271-3.182 1.97c-.27.166-.616-.036-.616-.372V9.1s-2.571-.3-4 2.4c.571-4.8 3.143-4.8 4-4.8v-.769c0-.336.346-.538.616-.371l3.182 1.969c.27.166.27.576 0 .742"/><path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m.694 2.09A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09l-.636 7a1 1 0 0 1-.996.91H2.826a1 1 0 0 1-.995-.91zM6.172 2a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"/></svg>                    
+                    <h4 style="color: white;"> Berkas CCTV </h4></a>               
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="shift3PowderWaste" class="form-label">Shift 3 - Waste Bubuk BC</label>
-                    <input type="number" class="form-control" id="shift3PowderWaste" name="shift3PowderWaste" step="0.01" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="shift3DoughWaste" class="form-label">Shift 3 - Waste Adonan</label>
-                    <input type="number" class="form-control" id="shift3DoughWaste" name="shift3DoughWaste" step="0.01" required>
-                </div>
-            </div>
-            <div class="row mb-3" id="wasteInfo" style="display: none;">
-                <div class="col-md-6">
-                    <label for="totalA" class="form-label">Total - Waste Bubuk BC :</label>
-                    <input type="number" class="form-control" id="totalA" name="totalA" value="0" readonly>
-                    <label for="totalB" class="form-label">Total - Waste Adonan :</label>
-                    <input type="number" class="form-control" id="totalB" name="totalB" value="0" readonly>
-                </div>
-            </div>
-            <div class="text-center mb-3">
-                <button type="submit" class="btn btn-primary" onclick="calculateWaste()">Calculate</button>
-                <button type="button" class="btn btn-danger" onclick="resetForm()">Reset</button>
-            </div>
-            <div class="text-center mb-3">
-                <div class="spinner" id="spinner"></div>
-            </div>
-        </form>
-        <div class="mt-4" id="hasil" >
-            <!-- Calculation results will be shown here -->
         </div>
     </div>
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-header">
-                <div class="input-group align-items-center">
-                    <div class="col-md-2">
-                        <label for="dateSearch" class="form-label mb-0">Search By Date &nbsp;:</label>
-                    </div>
-                    <div class="col-md-5">
-                        <input type="date" id="dateSearch" class="form-control small-date-input">
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="table-wrapper">
-                <div id="result"></div>
-                </div>
-            </div>
-            <div class="card-footer text-center">
-                <button id="downloadData" class="btn btn-success">Download Data as XLS</button>
-            </div>
-    </div>
-    <div class="text-center mt-5"><p>Hasan Sofil Azizi <br> Update V1.2</p></div>
-    
-
     <script defer src="script.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

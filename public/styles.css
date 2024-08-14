@@ -2,6 +2,8 @@ body {
     background: linear-gradient(135deg, rgb(0, 18, 97), rgb(0, 8, 41));
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
+    background-size: auto;
+    background-repeat: no-repeat;
 }
 .container {
     background-color: none;
@@ -118,6 +120,10 @@ h1 {
 table {
     width: 100%; /* Make table take up full width */
 }
+#db1, #db2, #db3 {
+    animation: ease-in-out;
+}
 #db1:hover, #db2:hover, #db3:hover {
     transform: scale(1.05);
+
 }
