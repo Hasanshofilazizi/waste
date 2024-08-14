@@ -7,21 +7,17 @@ const ExcelJS = require('exceljs');
 const app = express();
 const port = 3000;
 
-// Set up PostgreSQL client
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
 })
 
-// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve HTML form
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Handle form submission
 app.post('/submit', async (req, res) => {
   const {
     date,
@@ -30,10 +26,10 @@ app.post('/submit', async (req, res) => {
     shift2PowderWaste,
     shift2DoughWaste,
     shift3PowderWaste,
-    shift3DoughWaste,
-    totalA,
-    totalB
+    shift3DoughWaste
   } = req.body;
+  let totalA = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
+  let totalB = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
 
   try {
     await pool.query(
