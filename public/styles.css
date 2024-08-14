@@ -3,6 +3,7 @@ body {
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
     background-size: auto;
+    background-repeat: no-repeat;
 }
 .container {
     background-color: none;
