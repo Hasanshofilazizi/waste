@@ -28,8 +28,8 @@ app.post('/submit', async (req, res) => {
     shift3PowderWaste,
     shift3DoughWaste
   } = req.body;
-  let totalA = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
-  let totalB = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
+  let totalA = parseFloat(shift1PowderWaste) + parseFloat(shift2PowderWaste) + parseFloat(shift3PowderWaste);
+  let totalB = parseFloat(shift1DoughWaste) + parseFloat(shift2DoughWaste) + parseFloat(shift3DoughWaste);
 
   try {
     await pool.query(
