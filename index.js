@@ -15,7 +15,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  const filePath = path.join(__dirname, 'public', 'index.html');
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error('Error sending file:', err);
+      res.status(err.status).end();
+    }
+  });
 });
 
 app.get('/waste', (req, res) => {
@@ -99,5 +105,5 @@ app.get('/download', async (req, res) => {
 
 // Start server
 app.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${process.env.PORT}`);
 });
