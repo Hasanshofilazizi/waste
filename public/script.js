@@ -171,3 +171,80 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Ambil elemen canvas dan kontekstual 2D-nya
+const canvas = document.getElementById('signatureCanvas');
+const canvas1 = document.getElementById('signatureCanvas1');
+const canvas2 = document.getElementById('signatureCanvas2');
+const ctx = canvas.getContext('2d');
+const ctx1 = canvas1.getContext('2d');
+const ctx2 = canvas2.getContext('2d');
+
+// Variabel untuk melacak status menggambar
+let isDrawing = false;
+
+// Event handler untuk mulai menggambar
+canvas.addEventListener('mousedown', (event) => {
+    isDrawing = true;
+    ctx.beginPath();
+    ctx.moveTo(event.offsetX, event.offsetY);
+});
+canvas1.addEventListener('mousedown', (event) => {
+    isDrawing = true;
+    ctx1.beginPath();
+    ctx1.moveTo(event.offsetX, event.offsetY);
+});
+canvas2.addEventListener('mousedown', (event) => {
+    isDrawing = true;
+    ctx2.beginPath();
+    ctx2.moveTo(event.offsetX, event.offsetY);
+});
+
+// Event handler untuk menggambar pada canvas
+canvas.addEventListener('mousemove', (event) => {
+    if (isDrawing) {
+        ctx.lineTo(event.offsetX, event.offsetY);
+        ctx.stroke();
+    }
+});
+canvas1.addEventListener('mousemove', (event) => {
+    if (isDrawing) {
+        ctx1.lineTo(event.offsetX, event.offsetY);
+        ctx1.stroke();
+    }
+});
+canvas2.addEventListener('mousemove', (event) => {
+    if (isDrawing) {
+        ctx2.lineTo(event.offsetX, event.offsetY);
+        ctx2.stroke();
+    }
+});
+
+// Event handler untuk menghentikan menggambar
+canvas.addEventListener('mouseup', () => {
+    isDrawing = false;
+    ctx.closePath();
+});
+canvas1.addEventListener('mouseup', () => {
+    isDrawing = false;
+    ctx1.closePath();
+});
+canvas2.addEventListener('mouseup', () => {
+    isDrawing = false;
+    ctx2.closePath();
+});
+
+// Event handler untuk membersihkan canvas
+document.getElementById('clearBtn').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx1.clearRect(0, 0, canvas.width, canvas.height);
+    ctx2.clearRect(0, 0, canvas.width, canvas.height);
+});
+
+// Event handler untuk menyimpan tanda tangan sebagai gambar
+document.getElementById('saveBtn').addEventListener('click', () => {
+    const dataURL = canvas.toDataURL('image/png');
+    const signatureImage = document.getElementById('signatureImage');
+    signatureImage.src = dataURL;
+    signatureImage.style.display = 'block';
+});

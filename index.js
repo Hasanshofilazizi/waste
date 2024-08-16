@@ -28,6 +28,10 @@ app.get('/waste', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'waste.html'));
 });
 
+app.get('/playback', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'playback.html'));
+});
+
 app.post('/submit', async (req, res) => {
   const {
     date,
