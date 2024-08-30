@@ -223,8 +223,17 @@
             </div>
 
             <div class="form-group">
-                <label for="keterangan">Keterangan:</label>
-                <textarea id="keterangan" name="keterangan" rows="4"></textarea>
+                <div class="row">
+                    <div class="col-2">
+                        <label for="keterangan">Keterangan</label>
+                    </div> 
+                    <div class="col-1 text-center">
+                        <p><b>:</b></p>
+                    </div>
+                    <div class="col-9">
+                        <textarea id="keterangan" name="keterangan"></textarea>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group text-center">
@@ -234,7 +243,7 @@
                         <label for="signatureCanvas"><u>UH/SH/DH</u></label>
                     </div>
                     <div class="col-4">
-                        <canvas id="signatureCanvas1" width="100" height="100"></canvas>
+                        <canvas id="signatureCanvas1" width="100" height="100"></canvas> &nbsp;
                         <label for="signatureCanvas1"><u>DH IRGA</u></label>
                     </div>
                     <div class="col-4" >

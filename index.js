@@ -37,19 +37,23 @@ app.post('/submit', async (req, res) => {
     date,
     shift1PowderWaste,
     shift1DoughWaste,
+    shift1cair,
     shift2PowderWaste,
     shift2DoughWaste,
+    shift2cair,
     shift3PowderWaste,
-    shift3DoughWaste
+    shift3DoughWaste,
+    shift3cair,
   } = req.body;
   let totalA = parseFloat(shift1PowderWaste) + parseFloat(shift2PowderWaste) + parseFloat(shift3PowderWaste);
   let totalB = parseFloat(shift1DoughWaste) + parseFloat(shift2DoughWaste) + parseFloat(shift3DoughWaste);
+  let totalC = parseFloat(shift1cair) + parseFloat(shift2cair) + parseFloat(shift3cair);
 
   try {
     await pool.query(
-      `INSERT INTO waste_data (date, shift1_powder_waste, shift1_dough_waste, shift2_powder_waste, shift2_dough_waste, shift3_powder_waste, shift3_dough_waste, totala, totalb)
+      `INSERT INTO waste_data (date, shift1_powder_waste, shift1_dough_waste,shift1_cair, shift2_powder_waste, shift2_dough_waste, shift2_cair, shift3_powder_waste, shift3_dough_waste, shift3_cair, totala, totalb, totalc)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-      [date, shift1PowderWaste, shift1DoughWaste, shift2PowderWaste, shift2DoughWaste, shift3PowderWaste, shift3DoughWaste, totalA, totalB]
+      [date, shift1PowderWaste, shift1DoughWaste, shift2PowderWaste, shift2DoughWaste, shift3PowderWaste, shift3DoughWaste, totalA, totalB, totalC]
     );
     res.send('<h2>Data inserted successfully!</h2>');
   } catch (err) {

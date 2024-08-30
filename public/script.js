@@ -2,44 +2,68 @@ function calculateWaste() {
     document.getElementById('spinner').style.display = 'block';
     setTimeout(() => {
     // Retrieve values from form inputs
-    const shift1PowderWaste = parseFloat(document.getElementById('shift1PowderWaste').value) || 0;
-    const shift1DoughWaste = parseFloat(document.getElementById('shift1DoughWaste').value) || 0;
-    const shift2PowderWaste = parseFloat(document.getElementById('shift2PowderWaste').value) || 0;
-    const shift2DoughWaste = parseFloat(document.getElementById('shift2DoughWaste').value) || 0;
-    const shift3PowderWaste = parseFloat(document.getElementById('shift3PowderWaste').value) || 0;
-    const shift3DoughWaste = parseFloat(document.getElementById('shift3DoughWaste').value) || 0;
 
-    // Calculate total waste for powder and dough
-    const totalPowderWaste = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
-    const totalDoughWaste = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste;
+    // Buat formatter untuk format angka
+const numberFormatter = new Intl.NumberFormat('id-ID', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+});
 
-    document.getElementById('totalA').value = totalPowderWaste.toFixed(2);
-    document.getElementById('totalB').value = totalDoughWaste.toFixed(2);
+// Ambil nilai dari elemen input dan parsing ke float
+const shift1PowderWaste = parseFloat(document.getElementById('shift1PowderWaste').value) || 0;
+const shift1DoughWaste = parseFloat(document.getElementById('shift1DoughWaste').value) || 0;
+const shift2PowderWaste = parseFloat(document.getElementById('shift2PowderWaste').value) || 0;
+const shift2DoughWaste = parseFloat(document.getElementById('shift2DoughWaste').value) || 0;
+const shift3PowderWaste = parseFloat(document.getElementById('shift3PowderWaste').value) || 0;
+const shift3DoughWaste = parseFloat(document.getElementById('shift3DoughWaste').value) || 0;
+const shift1Cair = parseFloat(document.getElementById('shift1cair').value) || 0;
+const shift2Cair = parseFloat(document.getElementById('shift2cair').value) || 0;
+const shift3Cair = parseFloat(document.getElementById('shift3cair').value) || 0;
 
-    var tw = new Date(document.getElementById('date').value);
-    if (tw.getTimezoneOffset() == 0) (a=tw.getTime() + ( 7 *60*60*1000))
-    else (a=tw.getTime());
-    tw.setTime(a);
-    var tahun= tw.getFullYear ();
-    var hari= tw.getDay ();
-    var bulan= tw.getMonth ();
-    var tanggal= tw.getDate ();
-    var hariarray=new Array("Minggu,","Senin,","Selasa,","Rabu,","Kamis,","Jum'at,","Sabtu,");
-    var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
-    const tg = document.getElementById("date").innerHTML = tanggal+" "+bulanarray[bulan]+" "+tahun;
+// Hitung total waste untuk powder dan dough
+const totalPowderWaste = shift1PowderWaste + shift2PowderWaste + shift3PowderWaste;
+const totalDoughWaste = shift1DoughWaste + shift2DoughWaste + shift3DoughWaste;
+const totalCair = shift1Cair + shift2Cair + shift3Cair;
 
+// Format angka
+const formattedShift1PowderWaste = numberFormatter.format(shift1PowderWaste);
+const formattedShift2PowderWaste = numberFormatter.format(shift2PowderWaste);
+const formattedShift3PowderWaste = numberFormatter.format(shift3PowderWaste);
+const formattedTotalPowderWaste = numberFormatter.format(totalPowderWaste);
 
+const formattedShift1DoughWaste = numberFormatter.format(shift1DoughWaste);
+const formattedShift2DoughWaste = numberFormatter.format(shift2DoughWaste);
+const formattedShift3DoughWaste = numberFormatter.format(shift3DoughWaste);
+const formattedTotalDoughWaste = numberFormatter.format(totalDoughWaste);
 
-    
-    // Display results
-    const resultDiv = document.getElementById('hasil');
-    resultDiv.innerHTML = `
-        <p><strong>Jumlah hasil waste keluar tanggal ${tg} </strong></p>
-        <p><strong>Waste Bubuk BC RM</strong><br>Shift 1 = ${shift1PowderWaste} Kg<br>Shift 2 = ${shift2PowderWaste} Kg<br>Shift 3 = ${shift3PowderWaste} Kg<br><strong>Jumlah : ${totalPowderWaste.toFixed(1)} Kg</strong></p>
-        <p><strong>Waste Adonan Kotor</strong><br>Shift 1 = ${shift1DoughWaste} Kg<br>Shift 2 = ${shift2DoughWaste} Kg<br>Shift 3 = ${shift3DoughWaste} Kg<br><strong>Jumlah : ${totalDoughWaste.toFixed(1)} Kg</strong></p>
-    `;
-    document.getElementById('spinner').style.display = 'none';
-    }, 1000);
+const formattedShift1Cair = numberFormatter.format(shift1Cair);
+const formattedShift2Cair = numberFormatter.format(shift2Cair);
+const formattedShift3Cair = numberFormatter.format(shift3Cair);
+const formattedTotalCair = numberFormatter.format(totalCair);
+
+// Format tanggal
+var tw = new Date(document.getElementById('date').value);
+if (tw.getTimezoneOffset() == 0) a = tw.getTime() + (7 * 60 * 60 * 1000);
+else a = tw.getTime();
+tw.setTime(a);
+var tahun = tw.getFullYear();
+var hari = tw.getDay();
+var bulan = tw.getMonth();
+var tanggal = tw.getDate();
+var hariarray = ["Minggu,", "Senin,", "Selasa,", "Rabu,", "Kamis,", "Jum'at,", "Sabtu,"];
+var bulanarray = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+const tg = tanggal + " " + bulanarray[bulan] + " " + tahun;
+
+// Tampilkan hasil
+const resultDiv = document.getElementById('hasil');
+resultDiv.innerHTML = `
+    <p><strong>Jumlah hasil waste keluar tanggal ${tg}</strong></p>
+    <p><strong>Waste Bubuk BC RM</strong><br>Shift 1 = ${formattedShift1PowderWaste} Kg<br>Shift 2 = ${formattedShift2PowderWaste} Kg<br>Shift 3 = ${formattedShift3PowderWaste} Kg<br><strong>Jumlah : ${formattedTotalPowderWaste} Kg</strong></p>
+    <p><strong>Waste Adonan Kotor</strong><br>Shift 1 = ${formattedShift1DoughWaste} Kg<br>Shift 2 = ${formattedShift2DoughWaste} Kg<br>Shift 3 = ${formattedShift3DoughWaste} Kg<br><strong>Jumlah : ${formattedTotalDoughWaste} Kg</strong></p>
+    <p><strong>Waste Cair</strong><br>Shift 1 = ${formattedShift1Cair} Kg<br>Shift 2 = ${formattedShift2Cair} Kg<br>Shift 3 = ${formattedShift3Cair} Kg<br><strong>Jumlah : ${formattedTotalCair} Kg</strong></p>
+`;
+document.getElementById('spinner').style.display = 'none';
+}, 1000);
 
 }
 
@@ -116,7 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             <th>Shift 1 - Waste Adonan</th>
                             <th>Shift 2 - Waste Adonan</th>
                             <th>Shift 3 - Waste Adonan</th>
-                            <th>Total Adonan</th>
+                            <th>Total Waste Adonan</th>
+                            <th>Shift 1 - Waste Cair</th>
+                            <th>Shift 2 - Waste Cair</th>
+                            <th>Shift 3 - Waste Cair</th>
+                            <th>Total Waste Cair</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -133,6 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <td>${item.shift2_dough_waste}</td>
                                 <td>${item.shift3_dough_waste}</td>
                                 <td>${parseFloat(item.shift3_dough_waste) + parseFloat(item.shift2_dough_waste) + parseFloat(item.shift1_dough_waste)}</td>
+                                <td>${item.shift1_cair}</td>
+                                <td>${item.shift2_cair}</td>
+                                <td>${item.shift3_cair}</td>
+                                <td>${parseFloat(item.shift3_cair) + parseFloat(item.shift2_cair) + parseFloat(item.shift1_cair)}</td>
                             </tr>
                         `).join('')}
                     </tbody>
