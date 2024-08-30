@@ -5,8 +5,8 @@ function calculateWaste() {
 
     // Buat formatter untuk format angka
 const numberFormatter = new Intl.NumberFormat('id-ID', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
 });
 
 // Ambil nilai dari elemen input dan parsing ke float
