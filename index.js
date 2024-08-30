@@ -52,7 +52,7 @@ app.post('/submit', async (req, res) => {
   try {
     await pool.query(
       `INSERT INTO waste_data (date, shift1_powder_waste, shift1_dough_waste, shift1_cair, shift2_powder_waste, shift2_dough_waste, shift2_cair, shift3_powder_waste, shift3_dough_waste, shift3_cair, totala, totalb, totalc)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
       [date, shift1PowderWaste, shift1DoughWaste, shift1cair, shift2PowderWaste, shift2DoughWaste, shift2cair, shift3PowderWaste, shift3DoughWaste, shift3cair, totalA, totalB, totalC]
     );
     res.send('<h2>Data inserted successfully!</h2>');
