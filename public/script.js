@@ -153,17 +153,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             <tr>
                                 <td>${item.id}</td>
                                 <td>${formatDate(item.date)}</td>
-                                <td>${item.shift1_powder_waste}</td>
-                                <td>${item.shift2_powder_waste}</td>
-                                <td>${item.shift3_powder_waste}</td>
+                                <td>${parseFloat(item.shift1_powder_waste)}</td>
+                                <td>${parseFloat(item.shift2_powder_waste)}</td>
+                                <td>${parseFloat(item.shift3_powder_waste)}</td>
                                 <td>${parseFloat(item.shift1_powder_waste) + parseFloat(item.shift2_powder_waste) + parseFloat(item.shift3_powder_waste)}</td>
-                                <td>${item.shift1_dough_waste}</td>
-                                <td>${item.shift2_dough_waste}</td>
-                                <td>${item.shift3_dough_waste}</td>
+                                <td>${parseFloat(item.shift1_dough_waste)}</td>
+                                <td>${parseFloat(item.shift2_dough_waste)}</td>
+                                <td>${parseFloat(item.shift3_dough_waste)}</td>
                                 <td>${parseFloat(item.shift3_dough_waste) + parseFloat(item.shift2_dough_waste) + parseFloat(item.shift1_dough_waste)}</td>
-                                <td>${item.shift1_cair}</td>
-                                <td>${item.shift2_cair}</td>
-                                <td>${item.shift3_cair}</td>
+                                <td>${parseFloat(item.shift1_cair)}</td>
+                                <td>${parseFloat(item.shift2_cair)}</td>
+                                <td>${parseFloat(item.shift3_cair)}</td>
                                 <td>${parseFloat(item.shift3_cair) + parseFloat(item.shift2_cair) + parseFloat(item.shift1_cair)}</td>
                             </tr>
                         `).join('')}
