@@ -58,9 +58,9 @@ const tg = tanggal + " " + bulanarray[bulan] + " " + tahun;
 const resultDiv = document.getElementById('hasil');
 resultDiv.innerHTML = `
     <p><strong>Jumlah hasil waste keluar tanggal ${tg}</strong></p>
-    <p><strong>Waste Bubuk BC RM</strong><br>Shift 1 = ${formattedShift1PowderWaste} Kg<br>Shift 2 = ${formattedShift2PowderWaste} Kg<br>Shift 3 = ${formattedShift3PowderWaste} Kg<br><strong>Jumlah : ${formattedTotalPowderWaste} Kg</strong></p>
-    <p><strong>Waste Adonan Kotor</strong><br>Shift 1 = ${formattedShift1DoughWaste} Kg<br>Shift 2 = ${formattedShift2DoughWaste} Kg<br>Shift 3 = ${formattedShift3DoughWaste} Kg<br><strong>Jumlah : ${formattedTotalDoughWaste} Kg</strong></p>
-    <p><strong>Waste Cair</strong><br>Shift 1 = ${formattedShift1Cair} Kg<br>Shift 2 = ${formattedShift2Cair} Kg<br>Shift 3 = ${formattedShift3Cair} Kg<br><strong>Jumlah : ${formattedTotalCair} Kg</strong></p>
+    <p><strong>Waste Bubuk BC RM</strong><br>Shift 1 = ${shift1PowderWaste} Kg<br>Shift 2 = ${shift2PowderWaste} Kg<br>Shift 3 = ${shift3PowderWaste} Kg<br><strong>Jumlah : ${formattedTotalPowderWaste} Kg</strong></p>
+    <p><strong>Waste Adonan Kotor</strong><br>Shift 1 = ${shift1DoughWaste} Kg<br>Shift 2 = ${shift2DoughWaste} Kg<br>Shift 3 = ${shift3DoughWaste} Kg<br><strong>Jumlah : ${formattedTotalDoughWaste} Kg</strong></p>
+    <p><strong>Waste Cair</strong><br>Shift 1 = ${shift1Cair} Kg<br>Shift 2 = ${shift2Cair} Kg<br>Shift 3 = ${shift3Cair} Kg<br><strong>Jumlah : ${formattedTotalCair} Kg</strong></p>
 `;
 document.getElementById('spinner').style.display = 'none';
 }, 1000);
@@ -204,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Ambil elemen canvas dan kontekstual 2D-nya
 const canvas = document.getElementById('signatureCanvas');
 const canvas1 = document.getElementById('signatureCanvas1');
 const canvas2 = document.getElementById('signatureCanvas2');
@@ -212,69 +211,53 @@ const ctx = canvas.getContext('2d');
 const ctx1 = canvas1.getContext('2d');
 const ctx2 = canvas2.getContext('2d');
 
-// Variabel untuk melacak status menggambar
+// Variables to track drawing status
 let isDrawing = false;
 
-// Event handler untuk mulai menggambar
-canvas.addEventListener('mousedown', (event) => {
+// Function to start drawing on a canvas
+function startDrawing(event, ctx) {
     isDrawing = true;
     ctx.beginPath();
     ctx.moveTo(event.offsetX, event.offsetY);
-});
-canvas1.addEventListener('mousedown', (event) => {
-    isDrawing = true;
-    ctx1.beginPath();
-    ctx1.moveTo(event.offsetX, event.offsetY);
-});
-canvas2.addEventListener('mousedown', (event) => {
-    isDrawing = true;
-    ctx2.beginPath();
-    ctx2.moveTo(event.offsetX, event.offsetY);
-});
+}
 
-// Event handler untuk menggambar pada canvas
-canvas.addEventListener('mousemove', (event) => {
+// Function to draw on a canvas
+function draw(event, ctx) {
     if (isDrawing) {
         ctx.lineTo(event.offsetX, event.offsetY);
         ctx.stroke();
     }
-});
-canvas1.addEventListener('mousemove', (event) => {
-    if (isDrawing) {
-        ctx1.lineTo(event.offsetX, event.offsetY);
-        ctx1.stroke();
-    }
-});
-canvas2.addEventListener('mousemove', (event) => {
-    if (isDrawing) {
-        ctx2.lineTo(event.offsetX, event.offsetY);
-        ctx2.stroke();
-    }
-});
+}
 
-// Event handler untuk menghentikan menggambar
-canvas.addEventListener('mouseup', () => {
+// Function to stop drawing on a canvas
+function stopDrawing(ctx) {
     isDrawing = false;
     ctx.closePath();
-});
-canvas1.addEventListener('mouseup', () => {
-    isDrawing = false;
-    ctx1.closePath();
-});
-canvas2.addEventListener('mouseup', () => {
-    isDrawing = false;
-    ctx2.closePath();
-});
+}
 
-// Event handler untuk membersihkan canvas
+// Add event listeners to the canvases
+canvas.addEventListener('mousedown', (event) => startDrawing(event, ctx));
+canvas.addEventListener('mousemove', (event) => draw(event, ctx));
+canvas.addEventListener('mouseup', () => stopDrawing(ctx));
+
+canvas1.addEventListener('mousedown', (event) => startDrawing(event, ctx1));
+canvas1.addEventListener('mousemove', (event) => draw(event, ctx1));
+canvas1.addEventListener('mouseup', () => stopDrawing(ctx1));
+
+canvas2.addEventListener('mousedown', (event) => startDrawing(event, ctx2));
+canvas2.addEventListener('mousemove', (event) => draw(event, ctx2));
+canvas2.addEventListener('mouseup', () => stopDrawing(ctx2));
+
+// Event handler to clear all canvases
 document.getElementById('clearBtn').addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx1.clearRect(0, 0, canvas.width, canvas.height);
-    ctx2.clearRect(0, 0, canvas.width, canvas.height);
+    ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
 });
 
-// Event handler untuk menyimpan tanda tangan sebagai gambar
+// Event handler to save the signature as an image
 document.getElementById('saveBtn').addEventListener('click', () => {
+    // For simplicity, we'll save the first canvas as an image
     const dataURL = canvas.toDataURL('image/png');
     const signatureImage = document.getElementById('signatureImage');
     signatureImage.src = dataURL;
