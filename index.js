@@ -111,6 +111,34 @@ app.get('/download', async (req, res) => {
   }
 });
 
+app.use(express.json());
+
+// API to get all entries
+app.get('/api/entries', async (req, res) => {
+    try {
+        const result = await client.query('SELECT * FROM cctv_entries');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// API to add an entry
+app.post('/api/entries', async (req, res) => {
+    const { nomor, nama, password, nvr } = req.body;
+    try {
+        await client.query(
+            'INSERT INTO cctv_entries (nomor, nama, password, nvr) VALUES ($1, $2, $3, $4)',
+            [nomor, nama, password, nvr]
+        );
+        res.status(201).send();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // Start server
 app.listen(process.env.PORT, () => {
   console.log(`Server is running at http://localhost:${process.env.PORT}`);
