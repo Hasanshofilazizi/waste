@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to fetch entries from the server
     const fetchEntries = async () => {
-        const response = await fetch('/api/entries');
+        const response = await fetch('/entries');
         entries = await response.json();
         displayEntries(entries);
     };
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
         const nvr = document.getElementById('nvr').value;
 
-        await fetch('/api/entries', {
+        await fetch('/entries', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

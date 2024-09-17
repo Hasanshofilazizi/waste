@@ -115,10 +115,8 @@ app.get('/berkas', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'berkas.html'));
 });
 
-app.use(express.json());
-
 // API to get all entries
-app.get('/api/entries', async (req, res) => {
+app.get('/entries', async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM cctv_entries');
         res.json(result.rows);
@@ -129,7 +127,7 @@ app.get('/api/entries', async (req, res) => {
 });
 
 // API to add an entry
-app.post('/api/entries', async (req, res) => {
+app.post('/entries', async (req, res) => {
     const { nomor, nama, password, nvr } = req.body;
     try {
         await client.query(
