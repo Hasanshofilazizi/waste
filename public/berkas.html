@@ -69,9 +69,8 @@
       </li>
 
       <li>
-        <a href="calendar.html">
+        <a href="berkas.html">
           <i class="zmdi zmdi-calendar-check"></i> <span>Berkas</span>
-          <small class="badge float-right badge-light">New</small>
         </a>
       </li>
 
@@ -169,39 +168,45 @@
 
 	<div class="row">
         <div class="container mt-5">
-            <h1>CCTV Entry Form</h1>
+            <h2>List CCTV Jayanti 2</h2>
             <form id="cctv-form">
+                <!-- Form fields for adding entries -->
                 <div class="mb-3">
                     <label for="nomor" class="form-label">Nomor</label>
-                    <input type="text" class="form-control" id="nomor" required>
+                    <input type="text" class="form-control" id="nomor" name="nomor" required>
                 </div>
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" id="nama" required>
+                    <input type="text" class="form-control" id="nama" name="nama" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" required>
+                    <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="mb-3">
                     <label for="nvr" class="form-label">NVR</label>
-                    <input type="text" class="form-control" id="nvr" required>
+                    <input type="text" class="form-control" id="nvr" name="nvr" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Add Entry</button>
             </form>
-    
-            <h2 class="mt-5">Entries</h2>
-            <table class="table">
+            <table class="table mt-3">
                 <thead>
+                    <tr>
+                        <td colspan="4">
+                            <div class="mb-1 search-input">
+                                <input type="text" class="form-control" id="search" placeholder="Search by Nomor or NVR">
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
                         <th id="sort-nomor" style="cursor: pointer;">Nomor</th>
                         <th>Nama</th>
                         <th>Password</th>
-                        <th id="sort-nvr" style="cursor: pointer;">NVR</th>
+                        <th>NVR</th>
                     </tr>
                 </thead>
                 <tbody id="entries-body">
-                    <!-- Entries will be added here -->
+                    <!-- Entries will be populated here -->
                 </tbody>
             </table>
         </div>
@@ -226,7 +231,7 @@
 	<footer class="footer">
       <div class="container">
         <div class="text-center">
-          Copyright © Hasan Sofil Azizi Updated 1.6
+          Copyright © Hasan Sofil Azizi Updated 1.7
         </div>
       </div>
     </footer>
@@ -295,5 +300,4 @@
   
 </body>
 </html>
-<script src="/assets/script.js"></script>
 <script defer src="berkas.js"></script>

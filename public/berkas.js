@@ -1,14 +1,18 @@
-//berkas CCTV
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('cctv-form');
     const entriesBody = document.getElementById('entries-body');
-    let entries = [];
+    const searchInput = document.getElementById('search');
 
     // Function to fetch entries from the server
     const fetchEntries = async () => {
-        const response = await fetch('/entries');
-        entries = await response.json();
-        displayEntries(entries);
+        try {
+            const response = await fetch('/entries');
+            if (!response.ok) throw new Error('Network response was not ok');
+            const entries = await response.json();
+            displayEntries(entries);
+        } catch (error) {
+            entriesBody.innerHTML = `<h2>Error fetching data: ${error.message}</h2>`;
+        }
     };
 
     // Function to display entries in the table
@@ -24,47 +28,59 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Handle form submission
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        
+        const formData = new FormData(form);
+        const data = {
+            nomor: formData.get('nomor'),
+            nama: formData.get('nama'),
+            password: formData.get('password'),
+            nvr: formData.get('nvr')
+        };
 
-        const nomor = document.getElementById('nomor').value;
-        const nama = document.getElementById('nama').value;
-        const password = document.getElementById('password').value;
-        const nvr = document.getElementById('nvr').value;
+        // Check if all required fields are present
+        if (!data.nomor || !data.nama || !data.password || !data.nvr) {
+            entriesBody.innerHTML = '<h2>Please fill out all fields.</h2>';
+            return;
+        }
 
-        await fetch('/entries', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ nomor, nama, password, nvr })
-        });
+        try {
+            const response = await fetch('/entries', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
-        // Clear the form
-        form.reset();
-
-        // Fetch and display the updated entries
-        fetchEntries();
+            if (response.ok) {
+                fetchEntries(); // Refresh the data display after submission
+                form.reset(); // Clear the form
+            } else {
+                const errorText = await response.text();
+                entriesBody.innerHTML = `<h2>Error submitting data: ${errorText}</h2>`;
+            }
+        } catch (error) {
+            entriesBody.innerHTML = `<h2>Error: ${error.message}</h2>`;
+        }
     });
 
-    // Sorting function
-    const sortEntries = (key) => {
-        return entries.slice().sort((a, b) => {
-            if (a[key] < b[key]) return -1;
-            if (a[key] > b[key]) return 1;
-            return 0;
+
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        const rows = entriesBody.querySelectorAll('tr');
+        
+        rows.forEach(row => {
+            const nomorCell = row.cells[0]?.textContent.toLowerCase() || '';
+            const nvrCell = row.cells[3]?.textContent.toLowerCase() || '';
+
+            if (nomorCell.includes(query) || nvrCell.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
-    };
-
-    // Add event listeners to table headers for sorting
-    document.getElementById('sort-nomor').addEventListener('click', () => {
-        entries = sortEntries('nomor');
-        displayEntries(entries);
-    });
-
-    document.getElementById('sort-nvr').addEventListener('click', () => {
-        entries = sortEntries('nvr');
-        displayEntries(entries);
     });
 
     // Initial fetch

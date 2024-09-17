@@ -11,8 +11,19 @@ const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
 })
 
+// const pool = new Pool({
+//   user: 'postgres',
+//   host: 'localhost',
+//   database: 'wasteHasan',
+//   password: '',
+//   port: 5432,
+// });
+
+pool.connect();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   const filePath = path.join(__dirname, 'public', 'index.html');
@@ -115,10 +126,9 @@ app.get('/berkas', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'berkas.html'));
 });
 
-// API to get all entries
 app.get('/entries', async (req, res) => {
     try {
-        const result = await client.query('SELECT * FROM cctv_entries');
+        const result = await pool.query('SELECT * FROM cctv_entries ORDER BY nomor asc');
         res.json(result.rows);
     } catch (err) {
         console.error(err);
@@ -129,12 +139,18 @@ app.get('/entries', async (req, res) => {
 // API to add an entry
 app.post('/entries', async (req, res) => {
     const { nomor, nama, password, nvr } = req.body;
+
+    // Validate incoming data
+    if (!nomor || !nama || !password || !nvr) {
+        return res.status(400).send('All fields are required');
+    }
+
     try {
-        await client.query(
+        await pool.query(
             'INSERT INTO cctv_entries (nomor, nama, password, nvr) VALUES ($1, $2, $3, $4)',
             [nomor, nama, password, nvr]
         );
-        res.status(201).send();
+        res.status(201).send('Entry added successfully');
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -145,3 +161,5 @@ app.post('/entries', async (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Server is running at http://localhost:${process.env.PORT}`);
 });
+
+//process.env.PORT ||
