@@ -111,6 +111,10 @@ app.get('/download', async (req, res) => {
   }
 });
 
+app.get('/berkas', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'berkas.html'));
+});
+
 app.use(express.json());
 
 // API to get all entries
